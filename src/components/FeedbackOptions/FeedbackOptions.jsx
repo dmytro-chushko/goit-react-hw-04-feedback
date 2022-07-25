@@ -1,46 +1,28 @@
 import PropTypes from 'prop-types';
 import css from './FeedbackOptions.module.css';
 
-const FeedbackOptions = ({
-  btnGood,
-  btnNeutral,
-  btnBad,
-  setBtnGood,
-  setBtnNeutral,
-  setBtnBad,
-}) => (
+const FeedbackOptions = ({ buttons, handleClick }) => (
   <div className={css.buttonsContainer}>
-    <button
-      className={css.categoryButton}
-      type="button"
-      onClick={() => setBtnGood(btnGood + 1)}
-    >
-      good
-    </button>
-    <button
-      className={css.categoryButton}
-      type="button"
-      onClick={() => setBtnNeutral(btnNeutral + 1)}
-    >
-      neutral
-    </button>
-    <button
-      className={css.categoryButton}
-      type="button"
-      onClick={() => setBtnBad(btnBad + 1)}
-    >
-      bad
-    </button>
+    {Object.keys(buttons).map(button => (
+      <button
+        key={button}
+        className={css.categoryButton}
+        type="button"
+        onClick={() => handleClick(button)}
+      >
+        {button}
+      </button>
+    ))}
   </div>
 );
 
 FeedbackOptions.propTypes = {
-  btnGood: PropTypes.number.isRequired,
-  btnNeutral: PropTypes.number.isRequired,
-  btnBad: PropTypes.number.isRequired,
-  setBtnGood: PropTypes.func.isRequired,
-  setBtnNeutral: PropTypes.func.isRequired,
-  setBtnBad: PropTypes.func.isRequired,
+  buttons: PropTypes.shape({
+    good: PropTypes.number.isRequired,
+    neutral: PropTypes.number.isRequired,
+    bad: PropTypes.number.isRequired,
+  }),
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default FeedbackOptions;
